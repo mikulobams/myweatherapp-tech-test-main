@@ -1,5 +1,6 @@
-package com.weatherapp.myweatherapp.controller;
+package com.weatherapp.myweatherapp;
 
+import com.weatherapp.myweatherapp.controller.WeatherController;
 import com.weatherapp.myweatherapp.model.CityInfo;
 import com.weatherapp.myweatherapp.service.WeatherService;
 import org.junit.jupiter.api.Test;
