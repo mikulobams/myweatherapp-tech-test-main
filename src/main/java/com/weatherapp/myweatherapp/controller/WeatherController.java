@@ -1,5 +1,6 @@
 package com.weatherapp.myweatherapp.controller;
 
+import com.weatherapp.myweatherapp.exception.DaylightException;
 import com.weatherapp.myweatherapp.model.CityInfo;
 import com.weatherapp.myweatherapp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class WeatherController {
         } else if (daylight1Hours < daylight2Hours) {
             return ResponseEntity.ok(cityInfo2);
         } else {
-            return ResponseEntity.ok(null);
+            throw new DaylightException("Daylight hours are equal in both cities");
         }
     }
 
