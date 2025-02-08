@@ -1,11 +1,13 @@
-package com.weatherapp.myweatherapp.controller;
+package com.weatherapp.myweatherapp.exception;
 
-import com.weatherapp.myweatherapp.exception.DaylightException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * GlobalExceptionHandler class is used to handle the exceptions thrown by the application.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(DaylightException.class)

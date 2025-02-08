@@ -61,16 +61,14 @@ public class WeatherController {
         LocalTime sunsetTime2 = LocalTime.parse(sunset2, formatter);
 
         // Calculate the duration of daylight for the two cities
-        Duration daylight1 = Duration.between(sunriseTime1, sunsetTime1);
-        double daylight1Hours = daylight1.toMinutes();
+        long daylight1Minutes = Duration.between(sunriseTime1, sunsetTime1).toMinutes();
+        long daylight2Minutes = Duration.between(sunriseTime2, sunsetTime2).toMinutes();
 
-        Duration daylight2 = Duration.between(sunriseTime2, sunsetTime2);
-        double daylight2Hours = daylight2.toMinutes();
 
         // Compare the daylight hours and return the city with the longest day
-        if (daylight1Hours > daylight2Hours) {
+        if (daylight1Minutes > daylight2Minutes) {
             return ResponseEntity.ok(cityInfo1);
-        } else if (daylight1Hours < daylight2Hours) {
+        } else if (daylight1Minutes < daylight2Minutes) {
             return ResponseEntity.ok(cityInfo2);
         } else {
             throw new DaylightException("Daylight hours are equal in both cities");
@@ -92,8 +90,9 @@ public class WeatherController {
         CityInfo cityInfo2 = weatherService.forecastByCity(city2);
 
         // Check if it is currently raining in the two cities
-        Boolean isRaining1 = cityInfo1.getCurrentConditions().contains("rain");
-        Boolean isRaining2 = cityInfo2.getCurrentConditions().contains("rain");
+        Boolean isRaining1 = cityInfo1.getCurrentConditions().toLowerCase().contains("rain");
+        Boolean isRaining2 = cityInfo2.getCurrentConditions().toLowerCase().contains("rain");
+        System.out.println(cityInfo1.getCurrentConditions());
 
         // Return the city where it is currently raining
         if (isRaining1 && isRaining2) {
