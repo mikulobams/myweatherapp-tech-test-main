@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -40,8 +41,8 @@ public class WeatherController {
      * @param city2
      * @return CityInfo
      */
-    @GetMapping("/compare-daylight/{city1}/{city2}")
-    public ResponseEntity<CityInfo> compareDaylight(@PathVariable("city1") String city1, @PathVariable("city2") String city2) {
+    @GetMapping("/compare-daylight")
+    public ResponseEntity<CityInfo> compareDaylight(@RequestParam("city1") String city1, @RequestParam("city2") String city2) {
 
         // Get the forecast for the two cities
         CityInfo cityInfo1 = weatherService.forecastByCity(city1);
@@ -87,8 +88,8 @@ public class WeatherController {
      * @param city2
      * @return List<CityInfo>
      */
-    @GetMapping("/compare-rain/{city1}/{city2}")
-    public ResponseEntity<List<CityInfo>> compareRain(@PathVariable("city1") String city1, @PathVariable("city2") String city2) {
+    @GetMapping("/compare-rain")
+    public ResponseEntity<List<CityInfo>> compareRain(@RequestParam("city1") String city1, @RequestParam("city2") String city2) {
 
         // Get the forecast for the two cities
         CityInfo cityInfo1 = weatherService.forecastByCity(city1);
