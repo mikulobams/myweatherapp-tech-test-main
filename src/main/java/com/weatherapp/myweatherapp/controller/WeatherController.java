@@ -37,8 +37,8 @@ public class WeatherController {
      * Given two city names, this method compares the length of the daylight hours and returns the city with the longest day
      * If the daylight hours are equal in both cities, an exception is thrown
      *
-     * @param city1
-     * @param city2
+     * @param city1 The name of the first city
+     * @param city2 The name of the second city
      * @return CityInfo
      */
     @GetMapping("/compare-daylight")
@@ -84,8 +84,8 @@ public class WeatherController {
      * If it is currently raining in one city, it returns that city
      * If it is not currently raining in both cities, it returns an empty list
      *
-     * @param city1
-     * @param city2
+     * @param city1 The name of the first city
+     * @param city2 The name of the second city
      * @return List<CityInfo>
      */
     @GetMapping("/compare-rain")
