@@ -34,6 +34,7 @@ public class WeatherController {
 
     /**
      * Given two city names, this method compares the length of the daylight hours and returns the city with the longest day
+     * If the daylight hours are equal in both cities, an exception is thrown
      *
      * @param city1
      * @param city2
@@ -70,6 +71,7 @@ public class WeatherController {
             return ResponseEntity.ok(cityInfo1);
         } else if (daylight1Minutes < daylight2Minutes) {
             return ResponseEntity.ok(cityInfo2);
+            // Throw an exception when the daylight hours are equal in both cities
         } else {
             throw new DaylightException("Daylight hours are equal in both cities");
         }
@@ -77,6 +79,9 @@ public class WeatherController {
 
     /**
      * Given two city names, this method checks which city its currently raining in
+     * If it is currently raining in both cities, it returns both cities
+     * If it is currently raining in one city, it returns that city
+     * If it is not currently raining in both cities, it returns an empty list
      *
      * @param city1
      * @param city2
@@ -94,14 +99,17 @@ public class WeatherController {
         Boolean isRaining2 = cityInfo2.getCurrentConditions().toLowerCase().contains("rain");
         System.out.println(cityInfo1.getCurrentConditions());
 
-        // Return the city where it is currently raining
+        // Return two cities when it is currently raining in both
         if (isRaining1 && isRaining2) {
             List<CityInfo> cities = List.of(cityInfo1, cityInfo2);
             return ResponseEntity.ok(cities);
+            // Return the city where it is currently raining
         } else if (isRaining1) {
             return ResponseEntity.ok(List.of(cityInfo1));
+            //  Return the city where it is currently raining
         } else if (isRaining2) {
             return ResponseEntity.ok(List.of(cityInfo2));
+            // Return an empty list when it is not currently raining in both cities
         } else {
             return ResponseEntity.ok(List.of());
         }

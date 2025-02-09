@@ -46,7 +46,7 @@ public class WeatherControllerTest {
      */
     @Test
     public void testCompareDaylight_CityTwoHasLongerDay() throws Exception {
-        // CityOne: 06:00 to 18:00 (720 minutes)
+        // Build CityOne: 06:00 to 18:00 (720 minutes)
         CityInfo cityOne = new CityInfo();
         ReflectionTestUtils.setField(cityOne, "address", "CityOne");
         Object conditionsOne = createCurrentConditionsInstance();
@@ -54,7 +54,7 @@ public class WeatherControllerTest {
         ReflectionTestUtils.setField(conditionsOne, "sunset", "18:00:00");
         ReflectionTestUtils.setField(cityOne, "currentConditions", conditionsOne);
 
-        // CityTwo: 06:00 to 19:00 (780 minutes)
+        // Build CityTwo: 06:00 to 19:00 (780 minutes)
         CityInfo cityTwo = new CityInfo();
         ReflectionTestUtils.setField(cityTwo, "address", "CityTwo");
         Object conditionsTwo = createCurrentConditionsInstance();
@@ -78,7 +78,7 @@ public class WeatherControllerTest {
      */
     @Test
     public void testCompareDaylight_EqualDaylight() throws Exception {
-        // Both cities: 06:00 to 18:00.
+        // Build Both cities: 06:00 to 18:00.
         CityInfo cityOne = new CityInfo();
         ReflectionTestUtils.setField(cityOne, "address", "CityOne");
         Object conditionsOne = createCurrentConditionsInstance();
@@ -108,7 +108,7 @@ public class WeatherControllerTest {
      */
     @Test
     public void testCompareRain_BothRaining() throws Exception {
-        // CityOne: conditions contain "rain"
+        // Build CityOne: conditions contain "rain"
         CityInfo cityOne = new CityInfo();
         ReflectionTestUtils.setField(cityOne, "address", "CityOne");
         Object conditionsOne = createCurrentConditionsInstance();
@@ -117,7 +117,7 @@ public class WeatherControllerTest {
         ReflectionTestUtils.setField(conditionsOne, "conditions", "heavy rain");
         ReflectionTestUtils.setField(cityOne, "currentConditions", conditionsOne);
 
-        // CityTwo: conditions contain "rain"
+        // Build CityTwo: conditions contain "rain"
         CityInfo cityTwo = new CityInfo();
         ReflectionTestUtils.setField(cityTwo, "address", "CityTwo");
         Object conditionsTwo = createCurrentConditionsInstance();
@@ -143,7 +143,7 @@ public class WeatherControllerTest {
      */
     @Test
     public void testCompareRain_OneRaining() throws Exception {
-        // CityOne: clear conditions.
+        // Build CityOne: clear conditions.
         CityInfo cityOne = new CityInfo();
         ReflectionTestUtils.setField(cityOne, "address", "CityOne");
         Object conditionsOne = createCurrentConditionsInstance();
@@ -152,7 +152,7 @@ public class WeatherControllerTest {
         ReflectionTestUtils.setField(conditionsOne, "conditions", "clear sky");
         ReflectionTestUtils.setField(cityOne, "currentConditions", conditionsOne);
 
-        // CityTwo: raining.
+        // Build CityTwo: raining.
         CityInfo cityTwo = new CityInfo();
         ReflectionTestUtils.setField(cityTwo, "address", "CityTwo");
         Object conditionsTwo = createCurrentConditionsInstance();
@@ -177,7 +177,7 @@ public class WeatherControllerTest {
      */
     @Test
     public void testCompareRain_NoneRaining() throws Exception {
-        // CityOne: sunny.
+        // Build CityOne: sunny.
         CityInfo cityOne = new CityInfo();
         ReflectionTestUtils.setField(cityOne, "address", "CityOne");
         Object conditionsOne = createCurrentConditionsInstance();
@@ -186,7 +186,7 @@ public class WeatherControllerTest {
         ReflectionTestUtils.setField(conditionsOne, "conditions", "sunny");
         ReflectionTestUtils.setField(cityOne, "currentConditions", conditionsOne);
 
-        // CityTwo: clear.
+        // Build CityTwo: clear.
         CityInfo cityTwo = new CityInfo();
         ReflectionTestUtils.setField(cityTwo, "address", "CityTwo");
         Object conditionsTwo = createCurrentConditionsInstance();
