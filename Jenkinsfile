@@ -13,16 +13,13 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Compile') {
             steps {
                 // Run Maven on a Unix agent.
                 sh '''
                     chmod +x mvnw
-                    ./mvnw clean package
+                    ./mvnw clean compile
                 '''
-
-                // To run Maven on a Windows agent, use:
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
 
@@ -34,6 +31,28 @@ pipeline {
                 always {
                     junit '**/target/surefire-reports/*.xml'
                 }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Run Maven on a Unix agent.
+                sh '''
+                    chmod +x mvnw
+                    ./mvnw clean package
+                '''
+            }
+        }
+
+        stage('docker build and push') {
+            steps {
+                
+            }
+        }
+
+        stage('docker run') {
+            steps {
+                
             }
         }
     }
