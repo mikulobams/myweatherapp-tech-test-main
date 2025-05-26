@@ -66,7 +66,9 @@ public class WeatherControllerTest {
         when(weatherService.forecastByCity("CityTwo")).thenReturn(cityTwo);
 
         // Expect CityTwo to be returned (since its daylight duration is longer)
-        mockMvc.perform(get("/compare-daylight/CityOne/CityTwo")
+        mockMvc.perform(get("/compare-daylight")
+                        .param("city1", "CityOne")
+                        .param("city2", "CityTwo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.address").value("CityTwo"));
@@ -97,7 +99,9 @@ public class WeatherControllerTest {
         when(weatherService.forecastByCity("CityTwo")).thenReturn(cityTwo);
 
         // Expect a response body of "null" when daylight durations are equal.
-        mockMvc.perform(get("/compare-daylight/CityOne/CityTwo")
+        mockMvc.perform(get("/compare-daylight")
+                        .param("city1", "CityOne")
+                        .param("city2", "CityTwo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string("Daylight hours are equal in both cities"));
@@ -130,7 +134,9 @@ public class WeatherControllerTest {
         when(weatherService.forecastByCity("CityTwo")).thenReturn(cityTwo);
 
         // Expect both cities in the returned JSON array.
-        mockMvc.perform(get("/compare-rain/CityOne/CityTwo")
+        mockMvc.perform(get("/compare-rain")
+                        .param("city1", "CityOne")
+                        .param("city2", "CityTwo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -165,7 +171,9 @@ public class WeatherControllerTest {
         when(weatherService.forecastByCity("CityTwo")).thenReturn(cityTwo);
 
         // Expect only CityTwo to be returned.
-        mockMvc.perform(get("/compare-rain/CityOne/CityTwo")
+        mockMvc.perform(get("/compare-rain")
+                        .param("city1", "CityOne")
+                        .param("city2", "CityTwo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
@@ -199,7 +207,9 @@ public class WeatherControllerTest {
         when(weatherService.forecastByCity("CityTwo")).thenReturn(cityTwo);
 
         // Expect an empty JSON array.
-        mockMvc.perform(get("/compare-rain/CityOne/CityTwo")
+        mockMvc.perform(get("/compare-rain")
+                        .param("city1", "CityOne")
+                        .param("city2", "CityTwo")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
