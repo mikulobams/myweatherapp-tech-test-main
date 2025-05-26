@@ -1,9 +1,13 @@
 pipeline {
-    agent {
-        docker {
-            image 'openjdk:17-jdk-alpine'
-        }
-    }
+    agent any
+    
+    
+    // agent {
+    //     docker {
+    //         image 'openjdk:17-jdk-alpine'
+    //     }
+    // }
+    
 
     stages {
         stage('Checkout') {
@@ -18,7 +22,7 @@ pipeline {
                 // Run Maven on a Unix agent.
                 sh '''
                     chmod +x mvnw
-                    ./mvnw clean compile -DskipTests
+                    ./mvnw clean compile -DskipTests=true
                 '''
             }
         }
@@ -33,27 +37,25 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Build') {
             steps {
-                // Run Maven on a Unix agent.
                 sh '''
-                    chmod +x mvnw
-                    ./mvnw clean package
+                    ./mvnw clean package -DskipTests=true
                 '''
             }
         }
-
-        stage('docker build and push') {
+        
+        stage('Docker build and push') {
             steps {
-                
+                script{
+                    withDockerRegistry(credentialsId: '2ff46f8f-0f21-46ea-91cd-65d733893dfe') {
+                        sh 'docker build -t weather-app -f Dockerfile .'
+                        sh 'docker tag weather-app mikulobams/weather-app:latest'
+                        sh 'docker push mikulobams/weather-app:latest'
+                    }     
+                }
             }
-        }
-
-        stage('docker run') {
-            steps {
-                
-            }
-        }
+        }      
     }
 }
