@@ -18,7 +18,7 @@ pipeline {
                 // Run Maven on a Unix agent.
                 sh '''
                     chmod +x mvnw
-                    ./mvnw clean compile
+                    ./mvnw clean compile -DskipTests
                 '''
             }
         }
