@@ -1,0 +1,53 @@
+name: Build and Test Spring Boot App
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the Java environment (using Java 11 in this example)
+      - name: Set Up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: temurin
+          java-package: jdk
+          architecture: x64
+          check-latest: false
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
+
+      # Step 3: Compile and Test the Spring Boot application using Maven
+      - name: Compile with Maven
+        run: mvn clean compile -DSkipTests=true
+
+      # Step 4: Test the Spring Boot application using Maven
+      - name: Test with Maven
+        run: mvn clean test
+
+      # Debug: List the target directory
+      - name: List Target Directory
+        run: ls -la target
+
+      # (Optional) Step 4: Package the application if needed (e.g., to create a JAR file)
+      - name: Package Application
+        run: mvn package -DSkipTests=true
+
+      # (Optional) Step 5: Upload the artifact for later deployment or sharing
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: springboot-artifact
+          path: target/*.jar
